@@ -3,12 +3,12 @@ import DebounceInput from 'react-debounce-input';
 import * as BooksAPI from './BooksAPI';
 import Book from './book';
 
-
 class SearchBooks extends Component {
 
     state = {
         query : '',
-        matchingBooks : []
+        matchingBooks : [],
+        isLoading : false
     }
 
     updateBook = (book, newShelf) => {
@@ -22,7 +22,8 @@ class SearchBooks extends Component {
     search = (input) => {
         const { books } = this.props;
         if(input.query.trim().length > 0) {
-            this.setState({ query: input.query.trim() });
+            this.setState({ query: input.query.trim(), isLoading : true });
+            this.props.onLoadStart();
             BooksAPI.search(this.state.query, 20)
                .then((result) => {
                     for (let indexCount = 0; indexCount < result.length; indexCount++) {
@@ -34,8 +35,10 @@ class SearchBooks extends Component {
                         }
                     }
                    this.setState({ matchingBooks : result});
+                   this.props.onLoadEnd();
                }).catch(err => {
                    console.log('Error:' + err);
+                   this.props.onLoadEnd();
                    this.resetResults();
                });
         } else {
