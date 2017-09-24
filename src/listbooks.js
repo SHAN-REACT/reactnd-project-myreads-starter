@@ -1,27 +1,14 @@
 import React, {Component} from 'react';
-import * as BooksAPI from './BooksAPI';
 import Book from './book';
 
 class ListBooks extends Component {
-    state = {
-        books : []
-    }
-
-    clearBooks = () => {
-        this.setState({ books : [] });
-    }
-
-    componentDidMount() {
-        BooksAPI.getAll().then((books) => {
-            this.setState({ books });
-        }).catch(err => {
-            console.log('Error:' + err);
-            this.clearBooks();
-        });;
+    
+    updateBook = (book, newShelf) => {
+        this.props.onUpdateBook(book, newShelf);
     }
 
     render () {
-        const { books } = this.state;
+        const { books } = this.props;
         let currentlyReadingBooks;
         let wantToReadBooks;
         let readBooks;
@@ -47,7 +34,7 @@ class ListBooks extends Component {
                             <h2 className="bookshelf-title">Currently Reading</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {currentlyReadingBooks.map( (book, index) => <Book key={index} book={book} />)}
+                                    {currentlyReadingBooks.map( (book, index) => <Book key={index} book={book} onUpdateBook={this.updateBook} />)}
                                 </ol>
                             </div>
                         </div>
@@ -55,7 +42,7 @@ class ListBooks extends Component {
                             <h2 className="bookshelf-title">Want to Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    { wantToReadBooks.map( (book, index) => <Book key={index} book={book} />)}
+                                    { wantToReadBooks.map( (book, index) => <Book key={index} book={book} onUpdateBook={this.updateBook} />)}
                                 </ol>
                             </div>
                         </div>
@@ -63,7 +50,7 @@ class ListBooks extends Component {
                             <h2 className="bookshelf-title">Read</h2>
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
-                                    {readBooks.map( (book, index) => <Book key={index} book={book} />)}
+                                    {readBooks.map( (book, index) => <Book key={index} book={book} onUpdateBook={this.updateBook} />)}
                                 </ol>
                             </div>
                         </div>
@@ -76,6 +63,5 @@ class ListBooks extends Component {
         );
     }
 }
-
 
 export default ListBooks;
