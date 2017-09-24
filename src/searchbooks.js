@@ -56,8 +56,8 @@ class SearchBooks extends Component {
                 <DebounceInput
                     minLength={3}
                     debounceTimeout={200}
-                    placeholder="Search by title or author" 
-                    onChange={event => this.search({query: event.target.value})} />
+                    placeholder="Search by title or author"
+                    onChange={event => this.search({query: event.target.value})} autoFocus/>
                 </div>
             </div>
             <div className="search-books-results">
