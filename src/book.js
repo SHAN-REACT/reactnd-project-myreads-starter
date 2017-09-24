@@ -3,12 +3,19 @@ import React, {Component} from 'react';
 class Book extends Component {
 
     state = {
-        selectedShelf : this.props.book.shelf
+        selectedShelf : 'none'
     }
 
     onChangeHandler = (evt) => {
         this.setState({ selectedShelf : evt.target.value });
         this.props.onUpdateBook(this.props.book, evt.target.value);
+    }
+
+    componentDidMount() {
+        const shelf = this.props.book.shelf;
+        if (shelf && shelf.length > 0) {
+            this.setState({ selectedShelf : shelf });
+        }
     }
 
     render() {
@@ -18,7 +25,7 @@ class Book extends Component {
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})` }}></div>
                     <div className="book-shelf-changer">
                         <select value={this.state.selectedShelf} onChange={this.onChangeHandler}>
-                            <option value="none" disabled>Move to...</option>
+                            <option value="" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
                             <option value="read">Read</option>
