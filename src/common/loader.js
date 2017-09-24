@@ -12,11 +12,8 @@ state = {
 render() {
     let loadingElement;
     const {show} = this.props;
-    if(show === false) {
-        loadingElement = null;
-    } else {
-        loadingElement = <ReactLoading type="bars" color="grey" delay={this.state.delay} />;
-    }
+    show === false ? loadingElement = null 
+                    :loadingElement = <ReactLoading type="bars" color="grey" delay={this.state.delay} />; 
     return (
         loadingElement
     );
