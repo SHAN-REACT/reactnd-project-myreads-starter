@@ -1,9 +1,17 @@
 import React, {Component} from 'react';
 import DebounceInput from 'react-debounce-input';
+import PropTypes from 'prop-types';
 import * as BooksAPI from './BooksAPI';
 import Book from './book';
 
 class SearchBooks extends Component {
+
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+        onUpdateBook: PropTypes.func.isRequired,
+        onLoadEnd : PropTypes.func.isRequired,
+        onLoadStart: PropTypes.func.isRequired
+    }
 
     state = {
         query : '',
