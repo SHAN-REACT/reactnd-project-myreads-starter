@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import ReactLoading from 'react-loading';
 
+/**
+ * Class represeting the loading icon.
+ */
 class Loader extends Component {
 
 state = {
@@ -9,6 +12,10 @@ state = {
     delay : 0
 }
 
+/**
+ * Render the loading image on top left corner.
+ * @override
+ */
 render() {
     let loadingElement;
     const {show} = this.props;

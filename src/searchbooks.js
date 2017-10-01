@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import * as BooksAPI from './BooksAPI';
 import Book from './book';
 
+/**
+ * Class responsible for providing search functionality.
+ */
 class SearchBooks extends Component {
 
     static propTypes = {
@@ -19,14 +22,27 @@ class SearchBooks extends Component {
         isLoading : false
     }
 
+    /**
+     * Updates the parent with the new chosen state.
+     * @param {Object} book The book being acted upon
+     * @param {String} newShelf The new shelf name
+     */
     updateBook = (book, newShelf) => {
         this.props.onUpdateBook(book, newShelf);
     }
 
+    /**
+     * Resets the results to empty.
+     */
     resetResults = () => {
         this.setState({ matchingBooks : [] });
     }
 
+    /**
+     * Sets the state with the new set of books matching the
+     * search criteria.
+     * @param {String} input The search criteria
+     */
     search = (input) => {
         const { books } = this.props;
         if(input.query.trim().length > 0) {
@@ -54,6 +70,10 @@ class SearchBooks extends Component {
         }
     }
 
+    /**
+     * Displays the searchbox along with the results.
+     * @override
+     */
     render () {
         const { matchingBooks } = this.state;
         return (

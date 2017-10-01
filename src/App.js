@@ -6,6 +6,9 @@ import SearchBooks from './searchbooks';
 import Loader from './common/loader';
 import './App.css';
 
+/**
+ * Class representing the starting point of the app.
+ */
 class BooksApp extends React.Component {
 
   state = {
@@ -13,14 +16,26 @@ class BooksApp extends React.Component {
     isLoading : false
   }
 
+  /**
+   * Turs ON the loading state to true, which is responsible
+   * for showing the loading icon.
+   */
   onLoadStartHandler = () => {
     this.setState({ isLoading : true});
   }
 
+  /**
+   * Turns OFF the loading state to false, which hides the
+   * loading icon.
+   */
   onLoadEndHandler = () => {
     this.setState({ isLoading :false});
   }
 
+  /**
+   * Update the state of the Book in UI and also 
+   * sends the updated state to the server.
+   */
   updateBook = (book, newShelf) => {
     const { books } = this.state;
     let matchingBooks = books.filter( (b, index) => b.id === book.id);
@@ -53,10 +68,17 @@ class BooksApp extends React.Component {
     }
   }
 
+  /**
+   * Resets the books to empty array.
+   */
   resetBooks = () => {
     this.setState({ books : [] });
   }
-  
+
+  /**
+   * Fetches the list of books from the server.
+   * @override
+   */
   componentDidMount() {
     this.setState({ isLoading : true});
     BooksAPI.getAll().then((books) => {
@@ -68,6 +90,11 @@ class BooksApp extends React.Component {
     });
   }
 
+  /**
+   * Render either the books with different state page 
+   * or the search page, depending on the path.
+   * @override
+   */
   render() {
     return (
       <div className="app">

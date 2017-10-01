@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Book from './book';
 
+/**
+ * Class representing the list of Books in various states.
+ */
 class ListBooks extends Component {
     
     static propTypes = {
@@ -9,10 +12,19 @@ class ListBooks extends Component {
         onUpdateBook: PropTypes.func.isRequired
     }
 
+    /**
+     * Updates the parent with the new chosen state.
+     * @param {Object} book The book being acted upon
+     * @param {String} newShelf The new shelf name
+     */
     updateBook = (book, newShelf) => {
         this.props.onUpdateBook(book, newShelf);
     }
 
+    /**
+     * Displays books depending on their shelf.
+     * @override
+     */
     render () {
         const { books } = this.props;
         let currentlyReadingBooks;

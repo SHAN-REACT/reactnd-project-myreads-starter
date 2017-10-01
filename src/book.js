@@ -1,22 +1,32 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Class represeting an individual Book.
+ */
 class Book extends Component {
 
     static propTypes = {
         onUpdateBook: PropTypes.func.isRequired
     }
 
-    onUpdateBook
     state = {
         selectedShelf : 'none'
     }
 
+    /**
+     * Update the parent with the new chosen state.
+     * @param {Object} evt Default event object enclosing the target object.
+     */
     onChangeHandler = (evt) => {
         this.setState({ selectedShelf : evt.target.value });
         this.props.onUpdateBook(this.props.book, evt.target.value);
     }
 
+    /**
+     * Sets the status of the book during initialzition.
+     * @override
+     */
     componentDidMount() {
         const shelf = this.props.book.shelf;
         if (shelf && shelf.length > 0) {
@@ -24,6 +34,10 @@ class Book extends Component {
         }
     }
 
+    /**
+     * Renders a Book.
+     * @override
+     */
     render() {
         return(<li>
                 <div className="book">
